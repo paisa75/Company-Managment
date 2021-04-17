@@ -1,9 +1,6 @@
 package com.dotin.util;
 
-import com.dotin.model.Email;
-import com.dotin.model.Employee;
-import com.dotin.model.Student;
-import com.dotin.model.User;
+import com.dotin.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -39,6 +36,9 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Employee.class);
                 configuration.addAnnotatedClass(Student.class);
                 configuration.addAnnotatedClass(Email.class);
+                configuration.addAnnotatedClass(Attachment.class);
+                configuration.addAnnotatedClass(CategorianElement.class);
+                configuration.addAnnotatedClass(vacation.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
