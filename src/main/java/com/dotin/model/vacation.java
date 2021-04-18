@@ -13,7 +13,7 @@ public class vacation {
     private int id;
 
     @Column(name = "state")
-    private long state;
+    private int state;
 
     @Column(name = "personId")
     private int personId;
@@ -27,21 +27,20 @@ public class vacation {
     public vacation() {
     }
 
-    public vacation(long state, int personId, Date from, Date to) {
+    public vacation(int state, int personId, Date from, Date to) {
         this.state = state;
         this.personId = personId;
         this.from = from;
         this.to = to;
     }
-
-
-    public vacation(int id , long state, int personId, Date from, Date to) {
+    public vacation(int id , int state, int personId, Date from, Date to) {
         this.id = id;
         this.state = state;
         this.personId = personId;
         this.from = from;
         this.to = to;
     }
+
 
     public int getId() {
         return id;
@@ -51,11 +50,12 @@ public class vacation {
         this.id = id;
     }
 
-    public long getState() {
+
+    public int getState() {
         return state;
     }
 
-    public void setState(long state) {
+    public void setState(int state) {
         this.state = state;
     }
 

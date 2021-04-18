@@ -41,7 +41,12 @@
       <artifactId>hibernate-core</artifactId>
       <version>5.4.29.Final</version>
     </dependency>
-
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

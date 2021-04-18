@@ -1,10 +1,11 @@
 package com.dotin.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+public class Employee extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
@@ -26,10 +27,10 @@ public class Employee {
     private Integer age;
 
     @Column(name="role")
-    private Long role;
+    private int role;
 
     @Column(name="managerId")
-    private Long managerId;
+    private int managerId;
 
     @Column(name="address")
     private String address;
@@ -37,7 +38,30 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String lastName, String email, String phone, Integer age, Long role, Long managerId, String address) {
+    public Employee(String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.role = role;
+        this.managerId = managerId;
+        this.address = address;
+    }
+    public Employee(int id ,String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.age = age;
+        this.role = role;
+        this.managerId = managerId;
+        this.address = address;
+    }
+
+    public Employee(int id, boolean isActive, boolean isDisabled, int version, Date modification, String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
+        super(id, isActive, isDisabled, version, modification);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -96,19 +120,19 @@ public class Employee {
         this.age = age;
     }
 
-    public Long getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(Long role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
-    public Long getManagerId() {
+    public int getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Long managerId) {
+    public void setManagerId(int managerId) {
         this.managerId = managerId;
     }
 
