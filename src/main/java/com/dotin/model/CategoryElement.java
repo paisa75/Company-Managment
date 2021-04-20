@@ -1,10 +1,12 @@
 package com.dotin.model;
 
+import com.dotin.model.enums.CategoryElementType;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "categorianElement")
-public class CategorianElement {
+public class CategoryElement {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,18 +19,18 @@ public class CategorianElement {
     private String name;
 
     @Column(name = "dType")
-    private String dType;
+    private CategoryElementType dType;
 
-    public CategorianElement() {
+    public CategoryElement() {
     }
 
-    public CategorianElement(String value, String name, String dType) {
+    public CategoryElement(String value, String name, CategoryElementType dType) {
         this.value = value;
         this.name = name;
         this.dType = dType;
     }
 
-    public CategorianElement(int id , String value, String name, String dType) {
+    public CategoryElement(int id , String value, String name, CategoryElementType dType) {
         this.id = id;
         this.value = value;
         this.name = name;
@@ -59,11 +61,11 @@ public class CategorianElement {
         this.name = name;
     }
 
-    public String getdType() {
+    public CategoryElementType getdType() {
         return dType;
     }
 
-    public void setdType(String dType) {
+    public void setdType(CategoryElementType dType) {
         this.dType = dType;
     }
 }

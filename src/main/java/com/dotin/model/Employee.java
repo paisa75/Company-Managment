@@ -7,36 +7,32 @@ import java.util.Date;
 @Table(name="employee")
 public class Employee extends BaseEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name="name")
-    private String name;
+    protected String name;
 
     @Column(name="lastName")
-    private String lastName;
+    protected String lastName;
 
     @Column(name="email")
-    private String email;
+    protected String email;
 
     @Column(name="phone")
-    private String phone;
+    protected String phone;
 
     @Column(name="age")
-    private Integer age;
+    protected Integer age;
 
     @Column(name="role")
-    private int role;
+    protected int role;
 
     @Column(name="managerId")
-    private int managerId;
+    protected int managerId;
 
     @Column(name="address")
-    private String address;
-
-    public Employee() {
-    }
+    protected String address;
 
     public Employee(String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
         this.name = name;
@@ -48,7 +44,11 @@ public class Employee extends BaseEntity {
         this.managerId = managerId;
         this.address = address;
     }
-    public Employee(int id ,String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
+
+    public Employee() {
+    }
+
+    public Employee(long id , String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -60,8 +60,8 @@ public class Employee extends BaseEntity {
         this.address = address;
     }
 
-    public Employee(int id, boolean isActive, boolean isDisabled, int version, Date modification, String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
-        super(id, isActive, isDisabled, version, modification);
+    public Employee(boolean isActive, boolean isDisabled, int version, Date modification, String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
+        super(isActive, isDisabled, version, modification);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -72,11 +72,11 @@ public class Employee extends BaseEntity {
         this.address = address;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -156,4 +156,5 @@ public class Employee extends BaseEntity {
                 ", address='" + address +
                 ']';
     }
+
 }

@@ -1,9 +1,7 @@
 package com.dotin.dao;
 
 import com.dotin.model.Employee;
-import com.dotin.model.Student;
 import com.dotin.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -51,7 +49,7 @@ public class EmployeeDao {
 
     ///deleteEmployee
 
-    public void deleteEmployee(int id) {
+    public void deleteEmployee(Long id) {
 
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -76,7 +74,7 @@ public class EmployeeDao {
     }
 
     ///getEmployee
-    public Employee getEmployee(int id) {
+    public Employee getEmployee(Long id) {
 
         Transaction transaction = null;
         Employee employee = null;
@@ -105,7 +103,7 @@ public class EmployeeDao {
             //return session.createQuery("SELECT a FROM Student a", Student.class).getResultList();
         }
     }*/
-
+   @SuppressWarnings("unchecked")
     public List < Employee > getAllEmployee() {
 
         Transaction transaction = null;
@@ -126,5 +124,28 @@ public class EmployeeDao {
             e.printStackTrace();
         }
         return listOfEmployee;
+    }
+
+    ///getmanager
+    public List<Employee> getAllmanager() {
+
+        Transaction transaction = null;
+        List<Employee> manager = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+
+            manager = session.createNativeQuery("select * from employee where role=2",Employee.class).list();
+
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return manager;
     }
 }

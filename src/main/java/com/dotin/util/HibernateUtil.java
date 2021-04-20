@@ -11,6 +11,7 @@ import java.util.Properties;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
+
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
@@ -29,6 +30,7 @@ public class HibernateUtil {
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
                 settings.put(Environment.HBM2DDL_AUTO, "update");
+                settings.put(Environment.HBM2DDL_CHARSET_NAME , "UTF-8");
 
                 configuration.setProperties(settings);
 
@@ -37,7 +39,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Student.class);
                 configuration.addAnnotatedClass(Email.class);
                 configuration.addAnnotatedClass(Attachment.class);
-                configuration.addAnnotatedClass(CategorianElement.class);
+                configuration.addAnnotatedClass(CategoryElement.class);
                 configuration.addAnnotatedClass(vacation.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

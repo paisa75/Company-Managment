@@ -79,17 +79,27 @@
                 <tr>
                     <th>Employee Role: </th>
                     <td>
-                        <input type="text" name="role" size="45"
-                               value="<c:out value='${employee.role}' />"
-                        />
+                        <%--<input type="text" name="role" size="45"--%>
+                               <%--value="<c:out value='${employee.role}' />"--%>
+                        <%--/>--%>
+                            <select name="role">
+                                <c:forEach items="${roles}" var="role">
+                                    <option value="${role.id}">${role.name}</option>
+                                </c:forEach>
+                            </select>
                     </td>
                 </tr>
                 <tr>
                     <th>Employee ManagerId: </th>
                     <td>
-                        <input type="text" name="managerId" size="45"
-                               value="<c:out value='${employee.managerId}' />"
-                        />
+                        <%--<input type="text" name="managerId" size="45"--%>
+                               <%--value="<c:out value='${employee.managerId}' />"--%>
+                        <%--/>--%>
+                            <select name="managerId">
+                                <c:forEach items="${manager}" var="manage">
+                                    <option value="${manage.id}">${manage.name}</option>
+                                </c:forEach>
+                            </select>
                     </td>
                 </tr>
                 <tr>

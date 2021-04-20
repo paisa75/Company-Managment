@@ -6,8 +6,7 @@ import java.util.Date;
 
 @MappedSuperclass
 public class BaseEntity {
-    @Id
-    private int id;
+
    private boolean isActive;
    private boolean isDisabled;
     private int version;
@@ -16,22 +15,12 @@ public class BaseEntity {
     public BaseEntity() {
     }
 
-    public BaseEntity(int id, boolean isActive, boolean isDisabled, int version, Date modification) {
-        this.id = id;
+    public BaseEntity(boolean isActive, boolean isDisabled, int version, Date modification) {
         this.isActive = isActive;
         this.isDisabled = isDisabled;
         this.version = version;
         this.modification = modification;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public boolean isActive() {
         return isActive;
     }
