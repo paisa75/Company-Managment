@@ -13,7 +13,7 @@ public abstract class BaseEntity {
     private Boolean active;
     @Column(columnDefinition = "boolean default false")
     private Boolean disabled;
-    //    @Version
+    @Version
     private Long version;
 
     @UpdateTimestamp

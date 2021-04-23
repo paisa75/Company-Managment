@@ -140,7 +140,8 @@ public class EmployeeServlet extends HttpServlet {
         String address = request.getParameter("address");
         Boolean isActive = request.getParameter("active") != null ? Boolean.parseBoolean(request.getParameter("active")) : false;
         ///Boolean isActive = request.getParameterValues("active");
-        Employee employee = new Employee();
+        //Employee employee = new Employee();
+        Employee employee = employeeDao.getEmployee(id);
         employee.setId(id);
         employee.setName(name);
         employee.setLastName(lastName);
