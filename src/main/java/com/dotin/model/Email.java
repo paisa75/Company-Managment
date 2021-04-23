@@ -7,31 +7,31 @@ import java.util.Date;
 @Table(name = "email")
 public class Email {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name ="personId")
+    @Column(name = "personId")
     private long personId;
 
-    @Column(name ="subject")
+    @Column(name = "subject")
     private String subject;
 
-    @Column(name ="message")
+    @Column(name = "message")
     private String message;
 
-    @Column(name ="date")
+    @Column(name = "date")
     private Date date;
 
-    @Column(name ="receiver")
+    @Column(name = "receiver")
     private String receiver;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

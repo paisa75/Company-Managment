@@ -73,9 +73,9 @@ public class EmployeeServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<CategoryElement> roles = categoryDao.getAllRoles();
-        request.setAttribute("roles",roles);
+        request.setAttribute("roles", roles);
         List<Employee> manager = employeeDao.getAllmanager();
-        request.setAttribute("manager",manager);
+        request.setAttribute("manager", manager);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee-form.jsp");
         dispatcher.forward(request, response);
     }
@@ -83,9 +83,9 @@ public class EmployeeServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         List<CategoryElement> roles = categoryDao.getAllRoles();
-        request.setAttribute("roles",roles);
+        request.setAttribute("roles", roles);
         List<Employee> manager = employeeDao.getAllmanager();
-        request.setAttribute("manager",manager);
+        request.setAttribute("manager", manager);
         Long id = Long.parseLong(request.getParameter("id"));
         Employee existingEmployee = employeeDao.getEmployee(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee-form.jsp");
@@ -93,6 +93,7 @@ public class EmployeeServlet extends HttpServlet {
         dispatcher.forward(request, response);
 
     }
+
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         String name = request.getParameter("name");
@@ -100,9 +101,11 @@ public class EmployeeServlet extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         int age = Integer.parseInt(request.getParameter("age"));
-        int role = Integer.parseInt(request.getParameter("role"));
-        int managerId = Integer.parseInt(request.getParameter("managerId"));
+        Long roleId = Long.parseLong(request.getParameter("role"));
+        Long managerId = request.getParameter("managerId") != null ? Long.parseLong(request.getParameter("managerId")) : null;
         String address = request.getParameter("address");
+
+        boolean isActive = request.getParameter("active") != null ? Boolean.parseBoolean(request.getParameter("active")) : false;
 
 
         Employee newEmployee = new Employee();
@@ -111,9 +114,14 @@ public class EmployeeServlet extends HttpServlet {
         newEmployee.setEmail(email);
         newEmployee.setPhone(phone);
         newEmployee.setAge(age);
-        newEmployee.setRole(role);
-        newEmployee.setManagerId(managerId);
         newEmployee.setAddress(address);
+        newEmployee.setActive(isActive);
+
+        newEmployee.setRole(roleId != null ? categoryDao.getCategoryElement(roleId) : null);
+        newEmployee.setManager(managerId != null ? employeeDao.getEmployee(managerId) : null);
+
+        //newEmployee.setActive(true);
+
         employeeDao.saveEmployee(newEmployee
         );
         response.sendRedirect("list");
@@ -126,12 +134,12 @@ public class EmployeeServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        int age = Integer.parseInt(request.getParameter("age"));
-        int role = Integer.parseInt(request.getParameter("role"));
-        int managerId = Integer.parseInt(request.getParameter("managerId"));
+        Integer age = Integer.parseInt(request.getParameter("age"));
+        Long roleId = Long.parseLong(request.getParameter("role"));
+        Long managerId = request.getParameter("managerId") != null ? Long.parseLong(request.getParameter("managerId")) : null;
         String address = request.getParameter("address");
-
-
+        Boolean isActive = request.getParameter("active") != null ? Boolean.parseBoolean(request.getParameter("active")) : false;
+        ///Boolean isActive = request.getParameterValues("active");
         Employee employee = new Employee();
         employee.setId(id);
         employee.setName(name);
@@ -139,9 +147,12 @@ public class EmployeeServlet extends HttpServlet {
         employee.setEmail(email);
         employee.setPhone(phone);
         employee.setAge(age);
-        employee.setRole(role);
-        employee.setManagerId(managerId);
         employee.setAddress(address);
+        employee.setActive(isActive);
+
+        employee.setRole(roleId != null ? categoryDao.getCategoryElement(roleId) : null);
+        employee.setManager(managerId != null ? employeeDao.getEmployee(managerId) : null);
+
         employeeDao.updateEmployee(employee);
         response.sendRedirect("list");
     }
@@ -149,7 +160,8 @@ public class EmployeeServlet extends HttpServlet {
     private void deleteEmployee(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        employeeDao.deleteEmployee(id);
+        Employee employee = employeeDao.getEmployee(id);
+        employeeDao.deleteEmployee(employee);
         response.sendRedirect("list");
     }
 }

@@ -8,15 +8,15 @@ import java.util.Date;
 public class vacation {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "state")
-    private int state;
+    private Long state;
 
     @Column(name = "personId")
-    private int personId;
+    private Long personId;
 
     @Column(name = "from")
     private Date from;
@@ -27,13 +27,14 @@ public class vacation {
     public vacation() {
     }
 
-    public vacation(int state, int personId, Date from, Date to) {
+    public vacation(Long state, Long personId, Date from, Date to) {
         this.state = state;
         this.personId = personId;
         this.from = from;
         this.to = to;
     }
-    public vacation(int id , int state, int personId, Date from, Date to) {
+
+    public vacation(Long id, Long state, Long personId, Date from, Date to) {
         this.id = id;
         this.state = state;
         this.personId = personId;
@@ -42,28 +43,28 @@ public class vacation {
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getState() {
+    public Long getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Long state) {
         this.state = state;
     }
 
-    public int getPersonId() {
+    public Long getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Long personId) {
         this.personId = personId;
     }
 

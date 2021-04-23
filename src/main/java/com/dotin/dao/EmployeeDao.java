@@ -11,7 +11,7 @@ public class EmployeeDao {
 
     ///saveEmployee
 
-    public void saveEmployee(Employee employee){
+    public void saveEmployee(Employee employee) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
@@ -48,6 +48,10 @@ public class EmployeeDao {
     }
 
     ///deleteEmployee
+    public void deleteEmployee(Employee employee) {
+        employee.setDisabled(true);
+        updateEmployee(employee);
+    }
 
     public void deleteEmployee(Long id) {
 
@@ -58,13 +62,15 @@ public class EmployeeDao {
 
             // Delete a employee object
             Employee employee = session.get(Employee.class, id);
+            transaction.commit();
             if (employee != null) {
-                session.delete(employee);
+                //session.delete(employee);
+                employee.setDisabled(true);
+                updateEmployee(employee);
                 System.out.println("employee is deleted");
             }
 
             // commit transaction
-            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -91,29 +97,31 @@ public class EmployeeDao {
             }
             e.printStackTrace();
         }
+        if (employee.getDisabled() != null && employee.getDisabled())
+            return null;
         return employee;
     }
 
-   /* public List< Employee > getEmployee() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Employee");
-            List<Employee> listResult = query.list();
-            return listResult;
-            //return session.createQuery("from Employee", Employee.class);
-            //return session.createQuery("SELECT a FROM Student a", Student.class).getResultList();
-        }
-    }*/
-   @SuppressWarnings("unchecked")
-    public List < Employee > getAllEmployee() {
+    /* public List< Employee > getEmployee() {
+         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+             Query query = session.createQuery("FROM Employee");
+             List<Employee> listResult = query.list();
+             return listResult;
+             //return session.createQuery("from Employee", Employee.class);
+             //return session.createQuery("SELECT a FROM Student a", Student.class).getResultList();
+         }
+     }*/
+    @SuppressWarnings("unchecked")
+    public List<Employee> getAllEmployee() {
 
         Transaction transaction = null;
-        List < Employee > listOfEmployee = null;
+        List<Employee> listOfEmployee = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // get an user object
 
-            listOfEmployee = session.createQuery("from Employee").getResultList();
+            listOfEmployee = session.createQuery("from Employee e where e.disabled =false OR e.disabled=null  ").getResultList();
 
             // commit transaction
             transaction.commit();
@@ -136,7 +144,7 @@ public class EmployeeDao {
             transaction = session.beginTransaction();
             // get an user object
 
-            manager = session.createNativeQuery("select * from employee where role=2",Employee.class).list();
+            manager = session.createNativeQuery("select * from employee e where role=1 and (e.disabled is NULL Or e.disabled=false)", Employee.class).list();
 
             // commit transaction
             transaction.commit();

@@ -6,43 +6,43 @@ import javax.persistence.*;
 @Table(name = "attachment")
 public class Attachment {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "emailId")
-    private int emailId;
+    private Long emailId;
 
-    @Column(name = "filAddress" )
+    @Column(name = "filAddress")
     private String filAddress;
 
     public Attachment() {
     }
 
-    public Attachment(int emailId, String filAddress) {
+    public Attachment(Long emailId, String filAddress) {
         this.emailId = emailId;
         this.filAddress = filAddress;
     }
 
-    public Attachment(int id , int emailId, String filAddress) {
+    public Attachment(Long id, Long emailId, String filAddress) {
         this.id = id;
         this.emailId = emailId;
         this.filAddress = filAddress;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getEmailId() {
+    public Long getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(int emailId) {
+    public void setEmailId(Long emailId) {
         this.emailId = emailId;
     }
 

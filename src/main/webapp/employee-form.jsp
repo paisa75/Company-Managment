@@ -111,6 +111,15 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Employee active: </th>
+                    <td>
+                       <%-- <input type="text" name="active" size="15"
+                               value="<c:out value='${employee.active}' />"
+                        />--%>
+                    <input type="checkbox" id="active" name="active" value="true">
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Save" />
                     </td>

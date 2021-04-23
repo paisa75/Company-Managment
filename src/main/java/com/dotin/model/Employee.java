@@ -1,84 +1,45 @@
 package com.dotin.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name="employee")
+@Entity(name = "Employee")
+@Table(name = "employee")
 public class Employee extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name="name")
-    protected String name;
 
-    @Column(name="lastName")
-    protected String lastName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name="email")
-    protected String email;
+    @Column(name = "lastName")
+    private String lastName;
 
-    @Column(name="phone")
-    protected String phone;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name="age")
-    protected Integer age;
+    @Column(name = "phone")
+    private String phone;
 
-    @Column(name="role")
-    protected int role;
+    @Column(name = "age")
+    private Integer age;
 
-    @Column(name="managerId")
-    protected int managerId;
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "role")
+    private CategoryElement role;
 
-    @Column(name="address")
-    protected String address;
+    @Column(name = "address")
+    private String address;
 
-    public Employee(String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.role = role;
-        this.managerId = managerId;
-        this.address = address;
-    }
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
 
-    public Employee() {
-    }
+    @OneToMany(mappedBy = "manager")
+    private List<Employee> employees = new ArrayList<Employee>();
 
-    public Employee(long id , String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.role = role;
-        this.managerId = managerId;
-        this.address = address;
-    }
-
-    public Employee(boolean isActive, boolean isDisabled, int version, Date modification, String name, String lastName, String email, String phone, Integer age, int role, int managerId, String address) {
-        super(isActive, isDisabled, version, modification);
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.role = role;
-        this.managerId = managerId;
-        this.address = address;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    @Column(name = "managerId")
+//    private Long managerId;
 
     public String getName() {
         return name;
@@ -120,20 +81,28 @@ public class Employee extends BaseEntity {
         this.age = age;
     }
 
-    public int getRole() {
+    public CategoryElement getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(CategoryElement role) {
         this.role = role;
     }
 
-    public int getManagerId() {
-        return managerId;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public String getAddress() {
@@ -144,17 +113,5 @@ public class Employee extends BaseEntity {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Employee[" +
-                "id=" + id + ", name='" + name + ", lastName='" + lastName +
-                ", email='" + email +
-                ", phone='" + phone +
-                ", age=" + age +
-                ", role=" + role +
-                ", managerId=" + managerId +
-                ", address='" + address +
-                ']';
-    }
 
 }

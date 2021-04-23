@@ -1,3 +1,4 @@
+/*
 package com.dotin;
 
 import com.dotin.model.User;
@@ -36,7 +37,7 @@ public class AppMain {
 
             for(int i = 101; i <= 105; i++) {
                 userObj = new User();
-                userObj.setUserid(i);
+                userObj.setUserid((long) i);
                 userObj.setUsername("Editor " + i);
                 userObj.setCreatedBy("Administrator");
                 userObj.setCreatedDate(new Date());
@@ -60,3 +61,4 @@ public class AppMain {
         }
     }
 }
+*/

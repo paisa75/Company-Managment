@@ -1,47 +1,54 @@
 package com.dotin.model;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Boolean active;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean disabled;
+    //    @Version
+    private Long version;
 
-   private boolean isActive;
-   private boolean isDisabled;
-    private int version;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modification;
 
-    public BaseEntity() {
+    public Long getId() {
+        return id;
     }
 
-    public BaseEntity(boolean isActive, boolean isDisabled, int version, Date modification) {
-        this.isActive = isActive;
-        this.isDisabled = isDisabled;
-        this.version = version;
-        this.modification = modification;
-    }
-    public boolean isActive() {
-        return isActive;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public Boolean getActive() {
+        return active;
     }
 
-    public boolean isDisabled() {
-        return isDisabled;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
-    public void setDisabled(boolean disabled) {
-        isDisabled = disabled;
+    public Boolean getDisabled() {
+        return disabled;
     }
 
-    public int getVersion() {
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

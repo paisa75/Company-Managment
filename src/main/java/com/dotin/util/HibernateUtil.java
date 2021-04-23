@@ -34,9 +34,8 @@ public class HibernateUtil {
 
                 configuration.setProperties(settings);
 
-                configuration.addAnnotatedClass(User.class);
+
                 configuration.addAnnotatedClass(Employee.class);
-                configuration.addAnnotatedClass(Student.class);
                 configuration.addAnnotatedClass(Email.class);
                 configuration.addAnnotatedClass(Attachment.class);
                 configuration.addAnnotatedClass(CategoryElement.class);
