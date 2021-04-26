@@ -17,7 +17,7 @@
 </center>
 <div align="center">
 
-    <form action="insert/v" method="post">
+    <form action="insertv" method="post">
 
         <table border="1" cellpadding="5" bgcolor=#f2f2f2 style="color:white">
             <caption>

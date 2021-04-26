@@ -1,24 +1,21 @@
 package com.dotin.dao;
 
-import com.dotin.model.Employee;
-import com.dotin.model.Vacation;
+
+import com.dotin.model.User;
 import com.dotin.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.List;
 
-public class VacationDAo {
+public class UserDao {
 
-    ///saveVacation
-
-    public void saveVacation(Vacation vacation) {
+    public void saveUser(User user) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // save the student object
-            session.save(vacation);
+            session.save(user);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -29,27 +26,29 @@ public class VacationDAo {
         }
     }
 
-    ///getmanager
-  /*  public List<Employee> getAllEmployeeManager() {
+    public boolean validate(String userName, String password) {
 
         Transaction transaction = null;
-        List<Vacation> RequestVaction = null;
+        User user = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // get an user object
+            user = (User) session.createQuery("FROM User U WHERE U.username = :userName").setParameter("userName", userName)
+                    .uniqueResult();
 
-            RequestVaction = session.createNativeQuery("select * from vacation where person = userID ", Employee.class).list();
-
+            if (user != null && user.getPassword().equals(password)) {
+                return true;
+            }
             // commit transaction
             transaction.commit();
-                    } catch (Exception e) {
-                    if (transaction != null) {
-                    transaction.rollback();
-                    }
-                    e.printStackTrace();
-                    }
-                    return RequestVaction;
-                    }*/
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-                    }
+}

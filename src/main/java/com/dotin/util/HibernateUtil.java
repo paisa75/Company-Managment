@@ -39,7 +39,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Email.class);
                 configuration.addAnnotatedClass(Attachment.class);
                 configuration.addAnnotatedClass(CategoryElement.class);
-
+                configuration.addAnnotatedClass(User.class);
 
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

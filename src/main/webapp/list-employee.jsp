@@ -112,6 +112,8 @@
                     <a href="edit?id=<c:out value='${employee.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="delete?id=<c:out value='${employee.id}' />">Delete</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>
                 </td>
             </tr>
         </c:forEach>

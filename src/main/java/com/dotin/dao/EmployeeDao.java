@@ -156,4 +156,26 @@ public class EmployeeDao {
         }
         return manager;
     }
+    ///getemployeeManager
+    public List<Employee> getAllEmployeeManager() {
+
+        Transaction transaction = null;
+        List<Employee> EmployeeManager = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+
+            EmployeeManager = session.createNativeQuery("select * from employee where manager_id=1 ", Employee.class).list();
+
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return EmployeeManager;
+    }
 }

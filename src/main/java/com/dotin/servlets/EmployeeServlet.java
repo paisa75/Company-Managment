@@ -58,12 +58,15 @@ public class EmployeeServlet extends HttpServlet {
                 case "/update":
                     updateEmployee(request, response);
                     break;
-                case "/insert/v":
+                case "/insertv":
                     insertVacation(request, response);
                     break;
                 case "/vacation":
                     showNewVacationRequestForm(request, response);
                     break;
+               /* case  "/checkVacation":
+                    checkVacation(request,response);
+                    break;*/
                 default:
                     listEmployee(request, response);
                     break;
@@ -116,9 +119,7 @@ public class EmployeeServlet extends HttpServlet {
         Long roleId = Long.parseLong(request.getParameter("role"));
         Long managerId = request.getParameter("managerId") != null ? Long.parseLong(request.getParameter("managerId")) : null;
         String address = request.getParameter("address");
-
         boolean isActive = request.getParameter("active") != null ? Boolean.parseBoolean(request.getParameter("active")) : false;
-
 
         Employee newEmployee = new Employee();
         newEmployee.setName(name);
@@ -144,7 +145,6 @@ public class EmployeeServlet extends HttpServlet {
         SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         String fromDate = request.getParameter("from");
         String toDate = request.getParameter("to");
-
         String description = request.getParameter("description");
         Long userID = Long.parseLong(request.getParameter("userID"));
         Vacation vacation = new Vacation();
@@ -157,6 +157,7 @@ public class EmployeeServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
 
         Employee employee = employeeDao.getEmployee(userID);
         vacation.setPerson(employee);
@@ -202,6 +203,13 @@ public class EmployeeServlet extends HttpServlet {
         employeeDao.deleteEmployee(employee);
         response.sendRedirect("list");
     }
+  /*  private void checkVacation(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Employee employee = employeeDao.getEmployee(id);
+        employeeDao.deleteEmployee(employee);
+        response.sendRedirect("list");
+    }*/
 
     private void showNewVacationRequestForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
