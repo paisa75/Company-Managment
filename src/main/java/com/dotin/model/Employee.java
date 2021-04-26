@@ -38,6 +38,9 @@ public class Employee extends BaseEntity {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees = new ArrayList<Employee>();
 
+//    @OneToMany(mappedBy = "person")
+//    private List<Vacation> vacations = new ArrayList<Vacation>();
+
 //    @Column(name = "managerId")
 //    private Long managerId;
 

@@ -43,7 +43,7 @@
 <ul>
     <li><a class="active" href="#home">Home</a></li>
     <li><a href="#User management">User management</a></li>
-    <li><a href="#Vacation management">Vacation management</a></li>
+    <li><a href="/vacation">Vacation request</a></li>
     <li><a href="#Email management">Email management</a></li>
 </ul>
 <center>

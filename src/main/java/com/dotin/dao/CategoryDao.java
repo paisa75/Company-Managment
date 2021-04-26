@@ -33,6 +33,30 @@ public class CategoryDao {
     }
 
 
+    ///getVacationStates
+    public List<CategoryElement> getAllVacationStates() {
+
+        Transaction transaction = null;
+        List<CategoryElement> states = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+
+            states = session.createNativeQuery("select * from categorianelement where dType=2", CategoryElement.class).list();
+
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return states;
+    }
+
+
     ///getCategoryElement
     public CategoryElement getCategoryElement(Long id) {
 

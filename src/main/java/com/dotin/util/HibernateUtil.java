@@ -34,12 +34,13 @@ public class HibernateUtil {
 
                 configuration.setProperties(settings);
 
-
+                configuration.addAnnotatedClass(Vacation.class);
                 configuration.addAnnotatedClass(Employee.class);
                 configuration.addAnnotatedClass(Email.class);
                 configuration.addAnnotatedClass(Attachment.class);
                 configuration.addAnnotatedClass(CategoryElement.class);
-                configuration.addAnnotatedClass(vacation.class);
+
+
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

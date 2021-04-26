@@ -26,6 +26,9 @@ public class CategoryElement {
     @OneToMany(mappedBy = "role")
     private List<Employee> employees = new ArrayList<Employee>();
 
+//    @OneToMany(mappedBy = "state")
+//    private List<Vacation> vacations = new ArrayList<Vacation>();
+
     public CategoryElement() {
     }
 
@@ -81,4 +84,12 @@ public class CategoryElement {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+/*    public List<Vacation> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(List<Vacation> vacations) {
+        this.vacations = vacations;
+    }*/
 }

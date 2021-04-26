@@ -2,8 +2,10 @@ package com.dotin.servlets;
 
 import com.dotin.dao.CategoryDao;
 import com.dotin.dao.EmployeeDao;
+import com.dotin.dao.VacationDAo;
 import com.dotin.model.CategoryElement;
 import com.dotin.model.Employee;
+import com.dotin.model.Vacation;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +26,12 @@ public class EmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private EmployeeDao employeeDao;
     private CategoryDao categoryDao;
+    private VacationDAo vacationDAo;
 
     public void init() {
         employeeDao = new EmployeeDao();
         categoryDao = new CategoryDao();
+        vacationDAo = new VacationDAo();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,6 +57,12 @@ public class EmployeeServlet extends HttpServlet {
                     break;
                 case "/update":
                     updateEmployee(request, response);
+                    break;
+                case "/insert/v":
+                    insertVacation(request, response);
+                    break;
+                case "/vacation":
+                    showNewVacationRequestForm(request, response);
                     break;
                 default:
                     listEmployee(request, response);
@@ -127,6 +139,31 @@ public class EmployeeServlet extends HttpServlet {
         response.sendRedirect("list");
     }
 
+    private void insertVacation(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        String fromDate = request.getParameter("from");
+        String toDate = request.getParameter("to");
+
+        String description = request.getParameter("description");
+        Long userID = Long.parseLong(request.getParameter("userID"));
+        Vacation vacation = new Vacation();
+        vacation.setDescription(description);
+        try {
+            Date from = formatter6.parse(fromDate);
+            Date to = formatter6.parse(toDate);
+            vacation.setFrom(from);
+            vacation.setTo(to);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Employee employee = employeeDao.getEmployee(userID);
+        vacation.setPerson(employee);
+        vacationDAo.saveVacation(vacation);
+        response.sendRedirect("list");
+    }
+
     private void updateEmployee(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
@@ -165,4 +202,12 @@ public class EmployeeServlet extends HttpServlet {
         employeeDao.deleteEmployee(employee);
         response.sendRedirect("list");
     }
+
+    private void showNewVacationRequestForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vacation-form.jsp");
+        dispatcher.forward(request, response);
+    }
+
+
 }
