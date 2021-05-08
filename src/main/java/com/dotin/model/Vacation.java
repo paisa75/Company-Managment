@@ -16,7 +16,7 @@ public class Vacation {
     @JoinColumn(name = "state")
     private CategoryElement state;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "person")
     private Employee person;
 

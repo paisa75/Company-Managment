@@ -38,8 +38,14 @@ public class Employee extends BaseEntity {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees = new ArrayList<Employee>();
 
-//    @OneToMany(mappedBy = "person")
-//    private List<Vacation> vacations = new ArrayList<Vacation>();
+    @OneToMany(mappedBy = "person")
+    private List<Vacation> vacations = new ArrayList<Vacation>();
+
+/*    @OneToMany(mappedBy = "sender")
+    private List<Email> senders = new ArrayList<Email>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Email> receivers = new ArrayList<Email>();*/
 
 //    @Column(name = "managerId")
 //    private Long managerId;
@@ -116,5 +122,27 @@ public class Employee extends BaseEntity {
         this.address = address;
     }
 
+    public List<Vacation> getVacations() {
+        return vacations;
+    }
 
+    public void setVacations(List<Vacation> vacations) {
+        this.vacations = vacations;
+    }
+
+/*    public List<Email> getSenders() {
+        return senders;
+    }
+
+    public void setSenders(List<Email> senders) {
+        this.senders = senders;
+    }
+
+    public List<Email> getReceivers() {
+        return receivers;
+    }
+
+    public void setReceivers(List<Email> receivers) {
+        this.receivers = receivers;
+    }*/
 }

@@ -30,7 +30,7 @@ public class HibernateUtil {
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
                 settings.put(Environment.HBM2DDL_AUTO, "update");
-                settings.put(Environment.HBM2DDL_CHARSET_NAME , "UTF-8");
+                settings.put(Environment.HBM2DDL_CHARSET_NAME, "UTF-8");
 
                 configuration.setProperties(settings);
 
@@ -39,7 +39,6 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Email.class);
                 configuration.addAnnotatedClass(Attachment.class);
                 configuration.addAnnotatedClass(CategoryElement.class);
-                configuration.addAnnotatedClass(User.class);
 
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

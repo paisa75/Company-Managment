@@ -11,8 +11,9 @@ public class Email {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "personId")
-    private long personId;
+    //@ManyToOne(cascade = {CascadeType.MERGE})
+    @Column(name = "sender")
+    private Long sender;
 
     @Column(name = "subject")
     private String subject;
@@ -23,8 +24,9 @@ public class Email {
     @Column(name = "date")
     private Date date;
 
+    //@ManyToOne(cascade = {CascadeType.MERGE})
     @Column(name = "receiver")
-    private String receiver;
+    private Long receiver;
 
 
     public Long getId() {
@@ -33,14 +35,6 @@ public class Email {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(long personId) {
-        this.personId = personId;
     }
 
     public String getSubject() {
@@ -67,11 +61,19 @@ public class Email {
         this.date = date;
     }
 
-    public String getReceiver() {
+    public Long getSender() {
+        return sender;
+    }
+
+    public void setSender(Long sender) {
+        this.sender = sender;
+    }
+
+    public Long getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(Long receiver) {
         this.receiver = receiver;
     }
 }

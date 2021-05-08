@@ -4,6 +4,17 @@
 <html>
 <head>
     <title>Employee Management Application</title>
+    <%--<script type="text/javascript" src="js/validators/loginValidator.js"></script>--%>
+
+    <link rel="stylesheet" href="resources/css/kamadatepicker.min.css">
+    <link rel="stylesheet" href="/kamadatepicker.min.css">
+    <script src="/js/kamadatepicker.min.js"></script>
+    <%--        <link rel="stylesheet" href="../css/kamadatepicker.min.css">
+        <link href="<c:url value="/resources/css/kamadatepicker.min.css" />" rel="stylesheet">--%>
+    <%--<jsp:include page="css/kamadatepicker.min.css"/>--%>
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}css/kamadatepicker.min.css" />--%>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <%--<script src="${pageContext.request.contextPath}js/kamadatepicker.min.js"></script>--%>
 </head>
 <body>
 <center>
@@ -17,7 +28,7 @@
 </center>
 <div align="center">
 
-    <form action="insertv" method="post">
+    <form action="insertVacation" method="post">
 
         <table border="1" cellpadding="5" bgcolor=#f2f2f2 style="color:white">
             <caption>
@@ -30,6 +41,8 @@
                 <th bgcolor=#4CAF50>Date from :</th>
                 <td>
                     <input type="datetime-local" name="from" size="45"/>
+                    <input type="text" id="date1">
+                    <input type="hidden" id="id" name="id" value="${id}">
 
                 </td>
             </tr>
@@ -47,13 +60,13 @@
 
                 </td>
             </tr>
-            <tr>
-                <th bgcolor=#4CAF50>userId:</th>
-                <td>
-                    <input type="number" name="userID" size="45"/>
+            <%-- <tr>
+                 <th bgcolor=#4CAF50>userId:</th>
+                 <td>
+                     <input type="number" name="userID" size="45"/>
 
-                </td>
-            </tr>
+                 </td>
+             </tr>--%>
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="Save"/>
@@ -63,4 +76,22 @@
     </form>
 </div>
 </body>
+<script>
+    //  kamaDatepicker('date1', { buttonsColor: "red" });
+
+    var customOptions = {
+        placeholder: "روز / ماه / سال"
+        , twodigit: false
+        , closeAfterSelect: false
+        , nextButtonIcon: "fa fa-arrow-circle-right"
+        , previousButtonIcon: "fa fa-arrow-circle-left"
+        , buttonsColor: "blue"
+        , forceFarsiDigits: true
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    }
+</script>
 </html>

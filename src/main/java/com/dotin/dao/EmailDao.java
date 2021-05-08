@@ -1,23 +1,23 @@
 package com.dotin.dao;
 
-import com.dotin.model.Vacation;
+import com.dotin.model.Email;
 import com.dotin.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 
 import java.util.List;
 
-public class VacationDAo {
+public class EmailDao {
+    ///saveEmail
 
-    ///saveVacation
-
-    public void saveVacation(Vacation vacation) {
+    public void saveEmail(Email email) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // save the student object
-            session.save(vacation);
+            session.save(email);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -28,19 +28,15 @@ public class VacationDAo {
         }
     }
 
-    public List<Vacation> getPersonVacations(Long id) {
+    public Email getEmail(Long id) {
 
         Transaction transaction = null;
-        List<Vacation> vacation = null;
+        Email email = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // get an employee object
-            //session.createQuery("from Vacation ")
-            //vacation = session.createNativeQuery("select * from vacation v where v.person = 1;", Vacation.class).getResultList();
-            vacation = session.createNativeQuery("select * from vacation v where v.person = :myId", Vacation.class).setParameter("myId", id).getResultList();
-//            q.setParameter("id", id);
-//            vacation = q.getResultList();
+            email = session.get(Email.class, id);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -50,20 +46,19 @@ public class VacationDAo {
             e.printStackTrace();
         }
 
-
-        return vacation;
+        return email;
     }
 
-    ///getEmployee
-    public Vacation getVacation(Long id) {
-
+    public List<Email> getEmailByReceiver(Long id) {
         Transaction transaction = null;
-        Vacation vacation = null;
+        List<Email> emailList = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // start a transaction
+
             transaction = session.beginTransaction();
-            // get an employee object
-            vacation = session.get(Vacation.class, id);
+
+            NativeQuery q = session.createNativeQuery("select * from Email e where e.receiver= :id ;", Email.class);
+            q.setParameter("id", id);
+            emailList = q.getResultList();
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -73,19 +68,21 @@ public class VacationDAo {
             e.printStackTrace();
         }
 
-        return vacation;
+        return emailList;
+
+
     }
 
-
-    ///updateEmployee
-
-    public void updateVacation(Vacation vacation) {
+    public List<Email> getEmailBySender(Long id) {
         Transaction transaction = null;
+        List<Email> emailList = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // start a transaction
+
             transaction = session.beginTransaction();
-            // save the student object
-            session.update(vacation);
+
+            NativeQuery q = session.createNativeQuery("select * from Email e where e.sender= :id ;", Email.class);
+            q.setParameter("id", id);
+            emailList = q.getResultList();
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -94,29 +91,36 @@ public class VacationDAo {
             }
             e.printStackTrace();
         }
+
+        return emailList;
+
+
     }
-
-    ///getmanager
-  /*  public List<Employee> getAllEmployeeManager() {
-
+   /* public Email getEmployeeEmail(String email){
         Transaction transaction = null;
-        List<Vacation> RequestVaction = null;
+        List<Email> emailList = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // get an user object
+            String hql = "from Email where description like :keyword";
 
-            RequestVaction = session.createNativeQuery("select * from vacation where person = userID ", Employee.class).list();
+            String keyword = "New";
+            Query query = session.createQuery(hql);
+            query.setParameter("keyword", "%" + keyword + "%");
+
+            List<Product> listProducts = query.list();
+
+            emailList = session.createQuery("from Email e where e.disabled =false OR e.disabled=null  ").getResultList();
 
             // commit transaction
             transaction.commit();
-                    } catch (Exception e) {
-                    if (transaction != null) {
-                    transaction.rollback();
-                    }
-                    e.printStackTrace();
-                    }
-                    return RequestVaction;
-                    }*/
-
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return listOfEmployee;
+    }*/
 }

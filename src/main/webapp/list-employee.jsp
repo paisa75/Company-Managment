@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -14,7 +14,7 @@
 
         li {
             float: left;
-            border-right:1px solid #bbb;
+            border-right: 1px solid #bbb;
         }
 
         li:last-child {
@@ -41,10 +41,10 @@
 </head>
 <body>
 <ul>
-    <li><a class="active" href="#home">Home</a></li>
+    <li><a class="active" href="/">Home</a></li>
     <li><a href="#User management">User management</a></li>
-    <li><a href="/vacation">Vacation request</a></li>
-    <li><a href="#Email management">Email management</a></li>
+    <li><a href="#vacation">Vacation request</a></li>
+    <li><a href="#Email">Email management</a></li>
 </ul>
 <center>
     <h1>Employee Management</h1>
@@ -55,9 +55,9 @@
     </h2>
 </center>
 <div align="center">
-    <table border="1" cellpadding="5" bgcolor= #f2f2f2 style="color:white">
+    <table border="1" cellpadding="5" bgcolor=#f2f2f2 style="color:black">
         <caption><h2>List of Employee</h2></caption>
-        <tr  bgcolor=#4CAF50 >
+        <tr bgcolor=#4CAF50>
             <th>ID</th>
             <th>Name</th>
             <th>LastName</th>
@@ -67,53 +67,68 @@
             <th>Role</th>
             <th>ManagerId</th>
             <th>Address</th>
-            <th>Active</th>
+            <%--<th>Active</th>--%>
             <th></th>
         </tr>
         <c:forEach var="employee" items="${listEmployee}">
-            <tr style="color:black">
-                <td><c:out value="${employee.id}" /></td>
-                <td><c:out value="${employee.name}" /></td>
-                <td><c:out value="${employee.lastName}" /></td>
-                <td><c:out value="${employee.email}" /></td>
-                <td><c:out value="${employee.phone}" /></td>
-                <td><c:out value="${employee.age}" /></td>
+            <tr style="${employee.active!=true ? 'background-color: #b3b3b3;' : 'background-color : white'}">
+                    <%--<input style="${active!=true ? 'bgcolor=red' : ''}"/>--%>
+                <td><c:out value="${employee.id}"/></td>
+                <td><c:out value="${employee.name}"/></td>
+                <td><c:out value="${employee.lastName}"/></td>
+                <td><c:out value="${employee.email}"/></td>
+                <td><c:out value="${employee.phone}"/></td>
+                <td><c:out value="${employee.age}"/></td>
                 <c:choose>
                     <c:when test="${not empty employee.role}">
-                        <td><c:out value="${employee.getRole().name}" /></td>
+                        <td><c:out value="${employee.getRole().name}"/></td>
                     </c:when>
                     <c:otherwise>
-                        <td><c:out value="" /></td>
+                        <td><c:out value=""/></td>
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                <c:when test="${not empty employee.manager}">
-                    <td><c:out value="${employee.getManager().name}" /></td>
-                </c:when>
-                <c:otherwise>
-                    <td><c:out value="" /></td>
-                </c:otherwise>
-                </c:choose>
-                <td><c:out value="${employee.address}" /></td>
-
-                <td> <c:choose>
-                    <c:when test="${employee.active==true}">
-                         <input disabled type="checkbox" name="active"
-                                       checked/>
+                    <c:when test="${not empty employee.manager}">
+                        <td><c:out value="${employee.getManager().name}"/></td>
                     </c:when>
                     <c:otherwise>
-                         <input disabled type="checkbox" name="active"
-                    />
+                        <td><c:out value=""/></td>
                     </c:otherwise>
                 </c:choose>
-                </td>
-               <%-- <td><input type="checkbox" id="active" name="active" value="${employee.active}"></td>--%>
+                <td><c:out value="${employee.address}"/></td>
+
+                    <%--  <td><c:choose>
+                          <c:when test="${employee.active==true}">
+                              <input disabled type="checkbox" name="active"
+                                     checked/>
+                          </c:when>
+                          <c:otherwise>
+                              <input disabled type="checkbox" name="active"
+                              />
+                          </c:otherwise>
+                      </c:choose>
+                      </td>--%>
+                    <%-- <td><input type="checkbox" id="active" name="active" value="${employee.active}"></td>--%>
                 <td>
                     <a href="edit?id=<c:out value='${employee.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="delete?id=<c:out value='${employee.id}' />">Delete</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>
+                        <%-- <a href="inactive?id=<c:out value='${employee.id}' />">Inactive</a>
+                         <input style="${projectEnvironmentBean.divStyle eq 'dipslay:none' ? 'display:block' : 'display:none'}"/>
+                         &nbsp;&nbsp;&nbsp;&nbsp;--%>
+                    <a href="Email?id=<c:out value='${employee.id}' />">Emails</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="vacation?id=<c:out value='${employee.id}' />">Vacation</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <c:choose>
+                        <c:when test="${not empty employee.role && employee.getRole().id==1}">
+                            <a href="checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
+                        <%--<a href="checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>--%>
                 </td>
             </tr>
         </c:forEach>

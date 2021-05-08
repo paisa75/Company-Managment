@@ -17,8 +17,8 @@ public class CategoryElement {
     @Column(name = "value")
     private String value;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "dType")
     private CategoryElementType dType;
@@ -32,16 +32,16 @@ public class CategoryElement {
     public CategoryElement() {
     }
 
-    public CategoryElement(String value, String name, CategoryElementType dType) {
+    public CategoryElement(String value, String code, CategoryElementType dType) {
         this.value = value;
-        this.name = name;
+        this.code = code;
         this.dType = dType;
     }
 
-    public CategoryElement(Long id, String value, String name, CategoryElementType dType) {
+    public CategoryElement(Long id, String value, String code, CategoryElementType dType) {
         this.id = id;
         this.value = value;
-        this.name = name;
+        this.code = code;
         this.dType = dType;
     }
 
@@ -62,11 +62,11 @@ public class CategoryElement {
     }
 
     public String getName() {
-        return name;
+        return code;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.code = name;
     }
 
     public CategoryElementType getdType() {
