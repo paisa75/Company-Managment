@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Company-Managment-2" />
+        <module name="Company-Managment-new2" />
         <module name="Company-Managment1" />
         <module name="mavenservletdemo" />
       </profile>

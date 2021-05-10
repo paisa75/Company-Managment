@@ -49,9 +49,9 @@
 <center>
     <h1>Employee Management</h1>
     <h2>
-        <a href="new">Add New Employee</a>
+        <a href="employee/new">Add New Employee</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="list">List All Employee</a>
+        <a href="/">List All Employee</a>
     </h2>
 </center>
 <div align="center">
@@ -110,20 +110,20 @@
                       </td>--%>
                     <%-- <td><input type="checkbox" id="active" name="active" value="${employee.active}"></td>--%>
                 <td>
-                    <a href="edit?id=<c:out value='${employee.id}' />">Edit</a>
+                    <a href="employee/edit?id=<c:out value='${employee.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="delete?id=<c:out value='${employee.id}' />">Delete</a>
+                    <a href="employee/delete?id=<c:out value='${employee.id}' />">Delete</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                         <%-- <a href="inactive?id=<c:out value='${employee.id}' />">Inactive</a>
                          <input style="${projectEnvironmentBean.divStyle eq 'dipslay:none' ? 'display:block' : 'display:none'}"/>
                          &nbsp;&nbsp;&nbsp;&nbsp;--%>
-                    <a href="Email?id=<c:out value='${employee.id}' />">Emails</a>
+                    <a href="email?id=<c:out value='${employee.id}' />">Emails</a>
                     &nbsp;&nbsp;&nbsp;
                     <a href="vacation?id=<c:out value='${employee.id}' />">Vacation</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <c:choose>
                         <c:when test="${not empty employee.role && employee.getRole().id==1}">
-                            <a href="checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>
+                            <a href="vacation/checkVacation?id=<c:out value='${employee.id}' />">CheckLeave</a>
                         </c:when>
                         <c:otherwise>
                         </c:otherwise>

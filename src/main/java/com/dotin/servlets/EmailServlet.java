@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "EmailServlet")
+@WebServlet("/email/*")
 public class EmailServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -31,28 +31,34 @@ public class EmailServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getServletPath();
+        String action = request.getRequestURI();
         try {
 
             switch (action) {
-                case "/Email":
-                    showNewEmailForm(request, response);
-                    break;
-                case "/insertEmail":
+                case "/email/insert":
                     insertEmail(request, response);
                     break;
                 default:
-                    listEmployee(request, response);
+                    response.sendRedirect("/");
                     break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+    }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getRequestURI();
+
+
+            switch (action) {
+                case "/email":
+                    showNewEmailForm(request, response);
+                    break;
+                default:
+                    response.sendRedirect("/");
+                    break;
+            }
 
     }
 
@@ -90,9 +96,11 @@ public class EmailServlet extends HttpServlet {
             outboxList.add(inbox);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("email-form.jsp");
+        List<Employee> receivers= employeeDao.getAllEmployee();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/email-form.jsp");
         request.setAttribute("inboxList", inboxList);
         request.setAttribute("outboxList", outboxList);
+        request.setAttribute("receivers", receivers);
         request.setAttribute("id", id);
         dispatcher.forward(request, response);
     }
@@ -100,14 +108,16 @@ public class EmailServlet extends HttpServlet {
     private void insertEmail(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
+        Long receiver = Long.parseLong(request.getParameter("receiver"));
         //Long personId = Long.parseLong(request.getParameter("personId"));
-        String receiver = request.getParameter("receiver");
+       // String receiver = request.getParameter("receiver");
         String subject = request.getParameter("subject");
         String message = request.getParameter("message");
 
         Email email = new Email();
         email.setSender(employeeDao.getEmployee(id).getId());
-        email.setReceiver(employeeDao.getEmployeeByEmail(receiver).getId());
+        //email.setReceiver(employeeDao.getEmployeeByEmail(receiver).getId());
+        email.setReceiver(receiver);
         email.setSubject(subject);
         email.setMessage(message);
         email.setDate(new Date());
@@ -116,11 +126,5 @@ public class EmailServlet extends HttpServlet {
         response.sendRedirect("list");
     }
 
-    private void listEmployee(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<Employee> listEmployee = employeeDao.getAllEmployee();
-        request.setAttribute("listEmployee", listEmployee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list-employee.jsp");
-        dispatcher.forward(request, response);
-    }
+
 }

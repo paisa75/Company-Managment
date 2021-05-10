@@ -56,9 +56,9 @@
 <center>
     <h1>Employee Management</h1>
     <h2>
-        <a href="new">Add New Employee</a>
+        <a href="employee/new">Add New Employee</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="list">List All Employee</a>
+        <a href="/">List All Employee</a>
 
     </h2>
 </center>

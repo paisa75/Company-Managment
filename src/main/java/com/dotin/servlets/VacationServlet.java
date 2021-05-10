@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "VacationServlet")
+@WebServlet("/vacation/*")
 public class VacationServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -36,36 +36,46 @@ public class VacationServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getRequestURI();
+        try {
 
+            switch (action) {
+                case "/vacation/insertVacation":
+                    insertVacation(request, response);
+                    break;
+                default:
+                    response.sendRedirect("/");
+                    break;
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String action = request.getServletPath();
+        String action = request.getRequestURI();
 
         try {
 
             switch (action) {
-                case "/insertVacation":
-                    insertVacation(request, response);
-                    break;
                 case "/vacation":
                     showNewVacationRequestForm(request, response);
                     break;
-                case "/checkVacation":
+                case "/vacation/checkVacation":
                     checkVacation(request, response);
                     break;
-                case "/confirmVacation":
+                case "/vacation/confirmVacation":
                     vactionConfirm(request, response);
                     break;
-                case "/rejectVacation":
+                case "/vacation/rejectVacation":
                     vactionReject(request, response);
                     break;
-                case "/cancelVacation":
+                case "/vacation/cancelVacation":
                     vactionCancel(request, response);
                     break;
                 default:
-                    listEmployee(request, response);
+                    response.sendRedirect("/");
                     break;
             }
         } catch (SQLException ex) {
@@ -106,7 +116,7 @@ public class VacationServlet extends HttpServlet {
         Employee employee = employeeDao.getEmployee(id);
 
         request.setAttribute("id", id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("vacation-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/vacation-form.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -122,12 +132,13 @@ public class VacationServlet extends HttpServlet {
         }
         request.setAttribute("vacations", vacations);
         request.setAttribute("userId", id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list-vacation.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/list-vacation.jsp");
         dispatcher.forward(request, response);
 
     }
 
-    private void vactionConfirm(HttpServletRequest request, HttpServletResponse response)
+    private void
+    vactionConfirm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         Long userId = Long.parseLong(request.getParameter("userId"));
@@ -167,7 +178,7 @@ public class VacationServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<Employee> listEmployee = employeeDao.getAllEmployee();
         request.setAttribute("listEmployee", listEmployee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list-employee.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/list-employee.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -12,7 +12,7 @@
 </center>--%>
 <div align="center">
 
-    <form action="insertEmail" method="post">
+    <form action="email/insert" method="post">
 
         <table border="1" cellpadding="5" bgcolor=#f2f2f2 style="color:white">
             <caption style="color: black;">
@@ -29,19 +29,20 @@
             <%--</tr>--%>
             <tr>
                 <th bgcolor=#4CAF50>Receiver :</th>
-                <%-- <td>
+                 <td>
                      <select name="receiver" id="receiver">
                          <c:forEach items="${receivers}" var="receiver">
                              <option value="${receiver.id}">${receiver.name}</option>
                          </c:forEach>
                      </select>
-                 </td>--%>
-                <td>
+                     <input type="hidden" id="id" name="id" value="${id}">
+                 </td>
+               <%-- <td>
                     <input type="text" name="receiver" size="50"
                            value="<c:out value='${employee.email}' />"
                     />
-                    <input type="hidden" id="id" name="id" value="${id}">
-                </td>
+
+                </td>--%>
             </tr>
             <tr>
                 <th bgcolor=#4CAF50>Subject :</th>
