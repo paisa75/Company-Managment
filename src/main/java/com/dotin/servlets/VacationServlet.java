@@ -1,5 +1,6 @@
 package com.dotin.servlets;
 
+import com.dotin.JalaliCalendar;
 import com.dotin.dao.CategoryDao;
 import com.dotin.dao.EmployeeDao;
 import com.dotin.dao.VacationDAo;
@@ -86,22 +87,21 @@ public class VacationServlet extends HttpServlet {
 
     private void insertVacation(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        JalaliCalendar jalaliCalendar = new JalaliCalendar();
+//        SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         String toDate = request.getParameter("to");
         String fromDate = request.getParameter("from");
-
         String description = request.getParameter("description");
         Long userID = Long.parseLong(request.getParameter("id"));
         Vacation vacation = new Vacation();
         vacation.setDescription(description);
-        try {
-            Date from = formatter6.parse(fromDate);
-            Date to = formatter6.parse(toDate);
+
+           /* Date from = formatter6.parse(fromDate);*/
+            Date from = jalaliCalendar.getGregorianDate(fromDate);
+            Date to = jalaliCalendar.getGregorianDate(toDate);
+           /* Date to = formatter6.parse(toDate)*/;
             vacation.setFrom(from);
             vacation.setTo(to);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
 
         Employee employee = employeeDao.getEmployee(userID);
