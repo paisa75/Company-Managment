@@ -137,8 +137,7 @@ public class VacationServlet extends HttpServlet {
 
     }
 
-    private void
-    vactionConfirm(HttpServletRequest request, HttpServletResponse response)
+    private void  vactionConfirm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         Long userId = Long.parseLong(request.getParameter("userId"));
